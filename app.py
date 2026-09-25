@@ -95,7 +95,7 @@ if st.session_state.background_image is not None:
     st.markdown(
         f"""
         <style>
-        .stApp {{
+                .stApp {{
             background-image:
                 linear-gradient(
                     rgba(10, 18, 45, 0.48),
@@ -280,7 +280,141 @@ st.markdown(
         box-shadow: 0 0 15px rgba(255, 75, 75, 0.35);
     }
 
-    </style>
+    
+
+    /* =====================================================
+       MOBILE: KEEP THE DESKTOP STRUCTURE
+       ===================================================== */
+
+    @media screen and (max-width: 768px) {
+
+        /* NEVER stack Streamlit columns on mobile */
+        [data-testid="stHorizontalBlock"] {
+            display: flex !important;
+            flex-direction: row !important;
+            flex-wrap: nowrap !important;
+            align-items: stretch !important;
+            width: 100% !important;
+            gap: 0.25rem !important;
+        }
+
+        /* Override Streamlit's mobile 100% column width */
+        [data-testid="stHorizontalBlock"] > [data-testid="column"] {
+            flex: 1 1 0% !important;
+            width: 0 !important;
+            min-width: 0 !important;
+            max-width: none !important;
+            padding-left: 1px !important;
+            padding-right: 1px !important;
+        }
+
+        /* Keep nested Sudoku columns horizontal too */
+        [data-testid="stHorizontalBlock"] [data-testid="stHorizontalBlock"] {
+            display: flex !important;
+            flex-direction: row !important;
+            flex-wrap: nowrap !important;
+        }
+
+        [data-testid="stHorizontalBlock"] [data-testid="stHorizontalBlock"] > [data-testid="column"] {
+            flex: 1 1 0% !important;
+            width: 0 !important;
+            min-width: 0 !important;
+        }
+
+        /* Preserve the overall desktop-style spacing */
+        .block-container {
+            padding-left: 0.35rem !important;
+            padding-right: 0.35rem !important;
+            padding-top: 0.8rem !important;
+            padding-bottom: 1rem !important;
+            max-width: 100% !important;
+        }
+
+        /* Sudoku cells scale down but keep the same shape */
+        .stTextInput {
+            width: 100% !important;
+            min-width: 0 !important;
+        }
+
+        .stTextInput input {
+            width: 100% !important;
+            height: 38px !important;
+            min-height: 38px !important;
+            padding: 0 !important;
+            font-size: 17px !important;
+            font-weight: 800 !important;
+            border-radius: 3px !important;
+        }
+
+        [data-testid="stVerticalBlockBorderWrapper"] {
+            width: 100% !important;
+            padding: 3px !important;
+            margin-bottom: 4px !important;
+        }
+
+        .stButton > button {
+            min-height: 42px !important;
+            font-size: 12px !important;
+            padding: 6px 5px !important;
+            border-radius: 10px !important;
+        }
+
+        .info-card {
+            padding: 10px !important;
+            margin: 4px 0 !important;
+            min-height: auto !important;
+        }
+
+        h1 { font-size: 25px !important; }
+        h2 { font-size: 21px !important; }
+        h3 { font-size: 18px !important; }
+        h4 { font-size: 15px !important; }
+
+        [data-testid="stMarkdownContainer"] p,
+        [data-testid="stMarkdownContainer"] li {
+            font-size: 13px !important;
+            line-height: 1.45 !important;
+        }
+    }
+
+    /* =====================================================
+       VERY SMALL PHONES
+       ===================================================== */
+
+    @media screen and (max-width: 430px) {
+
+        .block-container {
+            padding-left: 0.15rem !important;
+            padding-right: 0.15rem !important;
+        }
+
+        [data-testid="stHorizontalBlock"] {
+            gap: 0.12rem !important;
+        }
+
+        [data-testid="stHorizontalBlock"] > [data-testid="column"] {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+
+        .stTextInput input {
+            height: 34px !important;
+            min-height: 34px !important;
+            font-size: 15px !important;
+        }
+
+        [data-testid="stVerticalBlockBorderWrapper"] {
+            padding: 2px !important;
+            border-width: 2px !important;
+        }
+
+        .stButton > button {
+            min-height: 38px !important;
+            font-size: 10px !important;
+            padding: 4px 3px !important;
+        }
+    }
+</style>
     """,
     unsafe_allow_html=True
 )
